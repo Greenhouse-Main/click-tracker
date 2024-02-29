@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Click and Color Canvas</title>
+  <style>
+    /* Center the canvas and make it fill the viewport */ 
+    body {
+      margin: 0;
+      display: flex; 
+      align-items: center;
+      justify-content: center; 
+      min-height: 100vh; 
+      flex-direction: column;
+      background-color: #f0f0f0; /* Add a background color for visibility */
+    }
+    span {
+      margin-bottom: 20px;
+      font-family: "Arial", "Helvetica", sans-serif; /* Add a font for visibility */
+        font-size: 20px;
+        font-weight: bold;
+    }
+    canvas {
+      border: 1px solid black; /* Add a border for visibility */
+    }
+  </style>
+</head>
+<body>
+    <span>Click In The Box</span>
+  <canvas id="myCanvas" width="1400" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function getRandomColor() {
+      let letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    canvas.addEventListener('click', function(event) {
+      const rect = canvas.getBoundingClientRect();  // Get canvas position
+      const x = event.clientX - rect.left;         // Adjust for canvas position
+      const y = event.clientY - rect.top;
+
+      // Draw a small colored circle
+      ctx.fillStyle = getRandomColor();
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI); // (x, y, radius, startAngle, endAngle)
+      ctx.fill();
+    });
+  </script>
+</body>
+</html>
